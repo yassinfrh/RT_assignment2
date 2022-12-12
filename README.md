@@ -10,6 +10,7 @@ In this assignment, it's requested to implement, in **ROS**, three nodes for con
 <img src="arena.png" alt="Arena" style="width:100%">
 <figcaption align = "center"><b>Simulation arena</b></figcaption>
 </figure>
+<br/><br/>
 
 ## Nodes
 
@@ -22,6 +23,7 @@ Inside of the module, you'll find six nodes:
 <img src="flowchart.png" alt="Flowchart" style="width:100%">
 <figcaption align = "center"><b>Client functioning flowchart</b></figcaption>
 </figure>
+<br/><br/><br/>
 
 - `info_node.py` is the node that prints the distance of the robot from the desired position and its average speed, getting them from the */pos_vel* topic as a custom message. The information is printed with the frequency setted as a ROS parameter inside of the launch file
 - `go_to_point_service.py` is the service node that, when called, makes the robot move toward the desired position, retrieved from the ROS parameter
@@ -54,6 +56,7 @@ Finally, to run the code, type the following command:
 <img src="run.png" alt="Code running" style="width:100%">
 <figcaption align = "center"><b>Program running</b></figcaption>
 </figure>
+<br/><br/><br/>
 
 After launching the program, four windows will pop up:
 
@@ -66,7 +69,7 @@ To get the information about the number of goals reached and canceled, open a co
 
     rosservice call /goals
 
-<br>
+<br/><br/>
 
 The frequency with which the information is printed in the info_node.py window can be set in the launch file `assignment1.launch` inside of the `launch` directory. To do so, modify the value in the following line:
 
