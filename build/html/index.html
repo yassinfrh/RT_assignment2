@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome to assignment_2_2022’s documentation! &mdash; assignment_2_2022 1.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="#" class="icon icon-home">
+            assignment_2_2022
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">Welcome to assignment_2_2022’s documentation!</a></li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a><ul>
+<li><a class="reference internal" href="#assignment-2-2022-documentation">Assignment_2_2022 documentation!</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-scripts.bug_as">Bug_as Module</a><ul>
+<li><a class="reference internal" href="#scripts.bug_as.change_state"><code class="docutils literal notranslate"><span class="pre">change_state()</span></code></a></li>
+<li><a class="reference internal" href="#scripts.bug_as.clbk_laser"><code class="docutils literal notranslate"><span class="pre">clbk_laser()</span></code></a></li>
+<li><a class="reference internal" href="#scripts.bug_as.clbk_odom"><code class="docutils literal notranslate"><span class="pre">clbk_odom()</span></code></a></li>
+<li><a class="reference internal" href="#scripts.bug_as.desired_position_"><code class="docutils literal notranslate"><span class="pre">desired_position_</span></code></a></li>
+<li><a class="reference internal" href="#scripts.bug_as.done"><code class="docutils literal notranslate"><span class="pre">done()</span></code></a></li>
+<li><a class="reference internal" href="#scripts.bug_as.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+<li><a class="reference internal" href="#scripts.bug_as.normalize_angle"><code class="docutils literal notranslate"><span class="pre">normalize_angle()</span></code></a></li>
+<li><a class="reference internal" href="#scripts.bug_as.planning"><code class="docutils literal notranslate"><span class="pre">planning()</span></code></a></li>
+<li><a class="reference internal" href="#scripts.bug_as.pose_"><code class="docutils literal notranslate"><span class="pre">pose_</span></code></a></li>
+<li><a class="reference internal" href="#scripts.bug_as.position_"><code class="docutils literal notranslate"><span class="pre">position_</span></code></a></li>
+<li><a class="reference internal" href="#scripts.bug_as.regions_"><code class="docutils literal notranslate"><span class="pre">regions_</span></code></a></li>
+<li><a class="reference internal" href="#scripts.bug_as.srv_client_go_to_point_"><code class="docutils literal notranslate"><span class="pre">srv_client_go_to_point_</span></code></a></li>
+<li><a class="reference internal" href="#scripts.bug_as.srv_client_wall_follower_"><code class="docutils literal notranslate"><span class="pre">srv_client_wall_follower_</span></code></a></li>
+<li><a class="reference internal" href="#scripts.bug_as.state_"><code class="docutils literal notranslate"><span class="pre">state_</span></code></a></li>
+<li><a class="reference internal" href="#scripts.bug_as.state_desc_"><code class="docutils literal notranslate"><span class="pre">state_desc_</span></code></a></li>
+<li><a class="reference internal" href="#scripts.bug_as.yaw_"><code class="docutils literal notranslate"><span class="pre">yaw_</span></code></a></li>
+<li><a class="reference internal" href="#scripts.bug_as.yaw_error_allowed_"><code class="docutils literal notranslate"><span class="pre">yaw_error_allowed_</span></code></a></li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">assignment_2_2022</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Welcome to assignment_2_2022’s documentation!</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="welcome-to-assignment-2-2022-s-documentation">
+<h1>Welcome to assignment_2_2022’s documentation!<a class="headerlink" href="#welcome-to-assignment-2-2022-s-documentation" title="Permalink to this heading"></a></h1>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this heading"></a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+<div class="section" id="assignment-2-2022-documentation">
+<h2>Assignment_2_2022 documentation!<a class="headerlink" href="#assignment-2-2022-documentation" title="Permalink to this heading"></a></h2>
+<p>This is the documentation of the assignment_2_2022 package!</p>
+</div>
+</div>
+<div class="section" id="module-scripts.bug_as">
+<span id="bug-as-module"></span><h1>Bug_as Module<a class="headerlink" href="#module-scripts.bug_as" title="Permalink to this heading"></a></h1>
+<span class="target" id="module-bug_as"></span><p>This node implements an action server to control the movement of the robot in the Gazebo environment</p>
+<dl>
+<dt>Subscribes to:</dt><dd><div class="line-block">
+<div class="line">/scan</div>
+<div class="line">/odom</div>
+</div>
+</dd>
+<dt>Publishes to:</dt><dd><div class="line-block">
+<div class="line">/cmd_vel</div>
+</div>
+</dd>
+<dt>Service:</dt><dd><div class="line-block">
+<div class="line">/go_to_point_switch</div>
+<div class="line">/wall_follower_switch</div>
+</div>
+</dd>
+<dt>Action server:</dt><dd><div class="line-block">
+<div class="line">/reaching_goal</div>
+</div>
+</dd>
+<dt>Parameter:</dt><dd><div class="line-block">
+<div class="line">/des_pos_x</div>
+<div class="line">/des_pos_y</div>
+</div>
+</dd>
+</dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="scripts.bug_as.change_state">
+<span class="sig-prename descclassname"><span class="pre">scripts.bug_as.</span></span><span class="sig-name descname"><span class="pre">change_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/bug_as.html#change_state"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.bug_as.change_state" title="Permalink to this definition"></a></dt>
+<dd><p>Function to change the state of the robot</p>
+<p>The function changes the <em>state</em> of the robot and calls the appropriate <em>service</em>.
+If the state is 0, the <code class="docutils literal notranslate"><span class="pre">/go_to_point_switch</span></code> service is called, if the state is 1,
+the <code class="docutils literal notranslate"><span class="pre">/wall_follower_switch</span></code> service is called and if the state is 2, both services are cancelled.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>state</strong> – Integer value representing the state to change to.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scripts.bug_as.clbk_laser">
+<span class="sig-prename descclassname"><span class="pre">scripts.bug_as.</span></span><span class="sig-name descname"><span class="pre">clbk_laser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/bug_as.html#clbk_laser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.bug_as.clbk_laser" title="Permalink to this definition"></a></dt>
+<dd><p>Callback function to retrieve the laser output</p>
+<p>The function is called when a <code class="docutils literal notranslate"><span class="pre">sensor_msgs::LaserScan</span></code> message is published on the topic <code class="docutils literal notranslate"><span class="pre">/scan</span></code>.
+It retrieves the laser output from the message, using the <em>ranges</em> parameter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>msg</strong> – Message of type <a class="reference external" href="http://docs.ros.org/en/noetic/api/sensor_msgs/html/msg/LaserScan.html">sensor_msgs::LaserScan</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scripts.bug_as.clbk_odom">
+<span class="sig-prename descclassname"><span class="pre">scripts.bug_as.</span></span><span class="sig-name descname"><span class="pre">clbk_odom</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/bug_as.html#clbk_odom"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.bug_as.clbk_odom" title="Permalink to this definition"></a></dt>
+<dd><p>Callback function to retrieve the position and the pose of the robot</p>
+<p>The function is called when a <code class="docutils literal notranslate"><span class="pre">nav_msgs::Odometry</span></code> message is published on the topic <code class="docutils literal notranslate"><span class="pre">/odom</span></code>.
+It retrieves the <em>pose</em> and the <em>position</em> from the message and stores them in the global variables <code class="docutils literal notranslate"><span class="pre">position_</span></code> and <code class="docutils literal notranslate"><span class="pre">pose_</span></code>.
+Finally, it computes the <em>yaw</em> angle from the pose, using quaternions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>msg</strong> – Message of type <a class="reference external" href="http://docs.ros.org/en/noetic/api/nav_msgs/html/msg/Odometry.html">nav_msgs::Odometry</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="scripts.bug_as.desired_position_">
+<span class="sig-prename descclassname"><span class="pre">scripts.bug_as.</span></span><span class="sig-name descname"><span class="pre">desired_position_</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">x:</span> <span class="pre">0.0</span> <span class="pre">y:</span> <span class="pre">0.0</span> <span class="pre">z:</span> <span class="pre">0</span></em><a class="headerlink" href="#scripts.bug_as.desired_position_" title="Permalink to this definition"></a></dt>
+<dd><p>Message of type <code class="docutils literal notranslate"><span class="pre">geometry_msgs::Twist</span></code> to set the desired position of the ROS parameter</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scripts.bug_as.done">
+<span class="sig-prename descclassname"><span class="pre">scripts.bug_as.</span></span><span class="sig-name descname"><span class="pre">done</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/bug_as.html#done"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.bug_as.done" title="Permalink to this definition"></a></dt>
+<dd><p>Function to stop the robot</p>
+<p>The function publishes a null <em>velocity</em> as a <code class="docutils literal notranslate"><span class="pre">geometry_msgs::Twist</span></code> message to the <code class="docutils literal notranslate"><span class="pre">/cmd_vel</span></code> topic
+to stop the robot.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scripts.bug_as.main">
+<span class="sig-prename descclassname"><span class="pre">scripts.bug_as.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/bug_as.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.bug_as.main" title="Permalink to this definition"></a></dt>
+<dd><p>Main function</p>
+<p>The function is used to <em>initialize</em> the subscribers, the publisher, the services and
+the action server. After the initialization, it waits for the client to set a new <em>goal</em>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scripts.bug_as.normalize_angle">
+<span class="sig-prename descclassname"><span class="pre">scripts.bug_as.</span></span><span class="sig-name descname"><span class="pre">normalize_angle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">angle</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/bug_as.html#normalize_angle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.bug_as.normalize_angle" title="Permalink to this definition"></a></dt>
+<dd><p>Function to normalize an angle</p>
+<p>The function normalizes the <em>angle</em> given in input using the <code class="docutils literal notranslate"><span class="pre">math</span></code> library</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>angle</strong> – Float number representing the angle to normalize</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The normalized angle</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scripts.bug_as.planning">
+<span class="sig-prename descclassname"><span class="pre">scripts.bug_as.</span></span><span class="sig-name descname"><span class="pre">planning</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">goal</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/bug_as.html#planning"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.bug_as.planning" title="Permalink to this definition"></a></dt>
+<dd><p>Function to control the movement of the robot</p>
+<p>The function is called when a goal is set by the action client and it retrieves the <em>desired
+position</em> from the goal message. The <code class="docutils literal notranslate"><span class="pre">/des_pos_x</span></code> and <code class="docutils literal notranslate"><span class="pre">/des_pos_y</span></code> parameters are set and
+the state of the robot is changed to 0. If the robot is in front of an obstacle, it changes state
+to 1, until the obstacle is completely overtaken. Once the goal has been reached, the function
+<code class="docutils literal notranslate"><span class="pre">done()</span></code> is called and the result is set to succeeded. In case the goal is cancelled, the function
+<code class="docutils literal notranslate"><span class="pre">done()</span></code> is called.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>goal</strong> – Goal set by the action client, containing the coordinates of the point to reach.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="scripts.bug_as.pose_">
+<span class="sig-prename descclassname"><span class="pre">scripts.bug_as.</span></span><span class="sig-name descname"><span class="pre">pose_</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">position:</span>&#160;&#160;&#160; <span class="pre">x:</span> <span class="pre">0.0</span>&#160;&#160; <span class="pre">y:</span> <span class="pre">0.0</span>&#160;&#160; <span class="pre">z:</span> <span class="pre">0.0</span> <span class="pre">orientation:</span>&#160;&#160;&#160; <span class="pre">x:</span> <span class="pre">0.0</span>&#160;&#160; <span class="pre">y:</span> <span class="pre">0.0</span>&#160;&#160; <span class="pre">z:</span> <span class="pre">0.0</span>&#160;&#160; <span class="pre">w:</span> <span class="pre">0.0</span></em><a class="headerlink" href="#scripts.bug_as.pose_" title="Permalink to this definition"></a></dt>
+<dd><p>Message of type <code class="docutils literal notranslate"><span class="pre">geometry_msgs::Pose</span></code> for the pose</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="scripts.bug_as.position_">
+<span class="sig-prename descclassname"><span class="pre">scripts.bug_as.</span></span><span class="sig-name descname"><span class="pre">position_</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">x:</span> <span class="pre">0.0</span> <span class="pre">y:</span> <span class="pre">0.0</span> <span class="pre">z:</span> <span class="pre">0.0</span></em><a class="headerlink" href="#scripts.bug_as.position_" title="Permalink to this definition"></a></dt>
+<dd><p>Message of type <code class="docutils literal notranslate"><span class="pre">geometry_msgs::Twist</span></code> for the position</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="scripts.bug_as.regions_">
+<span class="sig-prename descclassname"><span class="pre">scripts.bug_as.</span></span><span class="sig-name descname"><span class="pre">regions_</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#scripts.bug_as.regions_" title="Permalink to this definition"></a></dt>
+<dd><p>Dictionary to store the regions of the laser</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="scripts.bug_as.srv_client_go_to_point_">
+<span class="sig-prename descclassname"><span class="pre">scripts.bug_as.</span></span><span class="sig-name descname"><span class="pre">srv_client_go_to_point_</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#scripts.bug_as.srv_client_go_to_point_" title="Permalink to this definition"></a></dt>
+<dd><p>Service for moving the robot to a point</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="scripts.bug_as.srv_client_wall_follower_">
+<span class="sig-prename descclassname"><span class="pre">scripts.bug_as.</span></span><span class="sig-name descname"><span class="pre">srv_client_wall_follower_</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#scripts.bug_as.srv_client_wall_follower_" title="Permalink to this definition"></a></dt>
+<dd><p>Service for making the robot follow a wall</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="scripts.bug_as.state_">
+<span class="sig-prename descclassname"><span class="pre">scripts.bug_as.</span></span><span class="sig-name descname"><span class="pre">state_</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#scripts.bug_as.state_" title="Permalink to this definition"></a></dt>
+<dd><p>Variable to store the state of the robot:
+0 - go to point
+1 - wall following
+2 - done
+3 - canceled</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="scripts.bug_as.state_desc_">
+<span class="sig-prename descclassname"><span class="pre">scripts.bug_as.</span></span><span class="sig-name descname"><span class="pre">state_desc_</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['Go</span> <span class="pre">to</span> <span class="pre">point',</span> <span class="pre">'wall</span> <span class="pre">following',</span> <span class="pre">'done']</span></em><a class="headerlink" href="#scripts.bug_as.state_desc_" title="Permalink to this definition"></a></dt>
+<dd><p>String descriptor of the state</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="scripts.bug_as.yaw_">
+<span class="sig-prename descclassname"><span class="pre">scripts.bug_as.</span></span><span class="sig-name descname"><span class="pre">yaw_</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#scripts.bug_as.yaw_" title="Permalink to this definition"></a></dt>
+<dd><p>Variable to store the value of the yaw angle</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="scripts.bug_as.yaw_error_allowed_">
+<span class="sig-prename descclassname"><span class="pre">scripts.bug_as.</span></span><span class="sig-name descname"><span class="pre">yaw_error_allowed_</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.08726646259971647</span></em><a class="headerlink" href="#scripts.bug_as.yaw_error_allowed_" title="Permalink to this definition"></a></dt>
+<dd><p>Error for the yaw angle</p>
+</dd></dl>
+
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Yassin Farah.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

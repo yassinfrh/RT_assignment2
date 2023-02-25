@@ -1,5 +1,35 @@
 #! /usr/bin/env python
 
+"""
+
+.. module:: bug_as
+    :platform: Unix
+    :synopsis: Python module for controlling the robot
+    
+.. moduleauthor:: Yassin Farah <s4801788@studenti.unige.it>
+
+This node implements an action server to control the movement of the robot in the Gazebo environment
+
+Subscribes to:
+    | /scan
+    | /odom
+    
+Publishes to:
+    | /cmd_vel
+   
+Service:
+    | /go_to_point_switch
+    | /wall_follower_switch
+    
+Action server:
+    | /reaching_goal
+    
+Parameter:
+    | /des_pos_x
+    | /des_pos_y
+
+"""
+
 import rospy
 from geometry_msgs.msg import Point, Pose, Twist
 from sensor_msgs.msg import LaserScan
@@ -13,16 +43,51 @@ from std_srvs.srv import *
 import time
 
 srv_client_go_to_point_ = None
+""" Service for moving the robot to a point
+"""
+
 srv_client_wall_follower_ = None
+""" Service for making the robot follow a wall
+"""
+
 yaw_ = 0
+""" Variable to store the value of the yaw angle
+"""
+
 yaw_error_allowed_ = 5 * (math.pi / 180)  # 5 degrees
+""" Error for the yaw angle
+"""
+
 position_ = Point()
+""" Message of type ``geometry_msgs::Twist`` for the position
+"""
+
 pose_ = Pose()
+""" Message of type ``geometry_msgs::Pose`` for the pose
+"""
+
 desired_position_ = Point()
+""" Message of type ``geometry_msgs::Twist`` to set the desired position of the ROS parameter
+"""
+
 desired_position_.z = 0
+
 regions_ = None
+""" Dictionary to store the regions of the laser
+"""
+
 state_desc_ = ['Go to point', 'wall following', 'done']
+""" String descriptor of the state
+"""
+
 state_ = 0
+""" Variable to store the state of the robot:
+    0 - go to point
+    1 - wall following
+    2 - done
+    3 - canceled
+"""
+
 # 0 - go to point
 # 1 - wall following
 # 2 - done
@@ -31,6 +96,16 @@ state_ = 0
 
 
 def clbk_odom(msg):
+    """Callback function to retrieve the position and the pose of the robot
+    
+    The function is called when a ``nav_msgs::Odometry`` message is published on the topic ``/odom``.
+    It retrieves the *pose* and the *position* from the message and stores them in the global variables ``position_`` and ``pose_``.
+    Finally, it computes the *yaw* angle from the pose, using quaternions.
+    
+    Args:
+        msg: Message of type `nav_msgs::Odometry <http://docs.ros.org/en/noetic/api/nav_msgs/html/msg/Odometry.html>`_
+    """
+    
     global position_, yaw_, pose_
 
     # position
@@ -48,6 +123,15 @@ def clbk_odom(msg):
 
 
 def clbk_laser(msg):
+    """Callback function to retrieve the laser output
+    
+    The function is called when a ``sensor_msgs::LaserScan`` message is published on the topic ``/scan``.
+    It retrieves the laser output from the message, using the *ranges* parameter.
+    
+    Args:
+        msg: Message of type `sensor_msgs::LaserScan <http://docs.ros.org/en/noetic/api/sensor_msgs/html/msg/LaserScan.html>`_
+    """
+    
     global regions_
     regions_ = {
         'right':  min(min(msg.ranges[0:143]), 10),
@@ -59,6 +143,16 @@ def clbk_laser(msg):
 
 
 def change_state(state):
+    """Function to change the state of the robot
+    
+    The function changes the *state* of the robot and calls the appropriate *service*.
+    If the state is 0, the ``/go_to_point_switch`` service is called, if the state is 1,
+    the ``/wall_follower_switch`` service is called and if the state is 2, both services are cancelled.
+    
+    Args:
+        state: Integer value representing the state to change to.
+    """
+    
     global state_, state_desc_
     global srv_client_wall_follower_, srv_client_go_to_point_
     state_ = state
@@ -76,11 +170,28 @@ def change_state(state):
 
 
 def normalize_angle(angle):
+    """Function to normalize an angle
+    
+    The function normalizes the *angle* given in input using the ``math`` library
+    
+    Args:
+        angle: Float number representing the angle to normalize
+        
+    Returns:
+        The normalized angle
+    """
+    
     if(math.fabs(angle) > math.pi):
         angle = angle - (2 * math.pi * angle) / (math.fabs(angle))
     return angle
     
 def done():
+    """Function to stop the robot
+    
+    The function publishes a null *velocity* as a ``geometry_msgs::Twist`` message to the ``/cmd_vel`` topic
+    to stop the robot.
+    """
+    
     global pub
     twist_msg = Twist()
     twist_msg.linear.x = 0
@@ -89,6 +200,19 @@ def done():
     
     
 def planning(goal):
+    """Function to control the movement of the robot
+    
+    The function is called when a goal is set by the action client and it retrieves the *desired
+    position* from the goal message. The ``/des_pos_x`` and ``/des_pos_y`` parameters are set and 
+    the state of the robot is changed to 0. If the robot is in front of an obstacle, it changes state 
+    to 1, until the obstacle is completely overtaken. Once the goal has been reached, the function 
+    ``done()`` is called and the result is set to succeeded. In case the goal is cancelled, the function 
+    ``done()`` is called.
+    
+    Args:
+        goal: Goal set by the action client, containing the coordinates of the point to reach.
+    """
+    
     global regions_, position_, desired_position_, state_, yaw_, yaw_error_allowed_
     global srv_client_go_to_point_, srv_client_wall_follower_, act_s, pose_
     change_state(0)
@@ -157,6 +281,12 @@ def planning(goal):
     
 
 def main():
+    """Main function
+    
+    The function is used to *initialize* the subscribers, the publisher, the services and 
+    the action server. After the initialization, it waits for the client to set a new *goal*.
+    """
+    
     time.sleep(2)
     global regions_, position_, desired_position_, state_, yaw_, yaw_error_allowed_
     global srv_client_go_to_point_, srv_client_wall_follower_, act_s, pub
