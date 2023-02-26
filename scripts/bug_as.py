@@ -44,48 +44,68 @@ import time
 
 srv_client_go_to_point_ = None
 """ Service for moving the robot to a point
+
+    :meta hide-value:
 """
 
 srv_client_wall_follower_ = None
 """ Service for making the robot follow a wall
+
+    :meta hide-value:
 """
 
 yaw_ = 0
 """ Variable to store the value of the yaw angle
+
+    :meta hide-value:
 """
 
 yaw_error_allowed_ = 5 * (math.pi / 180)  # 5 degrees
 """ Error for the yaw angle
+
+    :meta hide-value:
 """
 
 position_ = Point()
-""" Message of type ``geometry_msgs::Twist`` for the position
+""" Message of type ``geometry_msgs::Point`` for the position
+
+    :meta hide-value:
 """
 
 pose_ = Pose()
 """ Message of type ``geometry_msgs::Pose`` for the pose
+
+    :meta hide-value:
 """
 
 desired_position_ = Point()
-""" Message of type ``geometry_msgs::Twist`` to set the desired position of the ROS parameter
+""" Message of type ``geometry_msgs::Point`` to set the desired position of the ROS parameter
+
+    :meta hide-value:
 """
 
 desired_position_.z = 0
 
 regions_ = None
 """ Dictionary to store the regions of the laser
+
+    :meta hide-value:
 """
 
 state_desc_ = ['Go to point', 'wall following', 'done']
 """ String descriptor of the state
+
+    :meta hide-value:
 """
 
 state_ = 0
-""" Variable to store the state of the robot:
-    0 - go to point
-    1 - wall following
-    2 - done
-    3 - canceled
+""" | Variable to store the state of the robot:
+    | 0 - go to point
+    | 1 - wall following
+    | 2 - done
+    | 3 - canceled
+    
+    :meta hide-value:
 """
 
 # 0 - go to point

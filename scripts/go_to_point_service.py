@@ -1,5 +1,30 @@
 #! /usr/bin/env python
 
+"""
+
+.. module:: go_to_point_service
+    :platform: Unix
+    :synopsis: Python module to make the robot reach a point
+    
+.. moduleauthor:: Yassin Farah <s4801788@studenti.unige.it>
+
+This node implements a service to make the robot move towards a point in the arena.
+
+Subscribes to:
+    | /odom
+    
+Publishes to:
+    | /cmd_vel
+   
+Service:
+    | /go_to_point_switch
+    
+Parameter:
+    | /des_pos_x
+    | /des_pos_y
+
+"""
+
 # import ros stuff
 import rospy
 from sensor_msgs.msg import LaserScan
@@ -12,14 +37,41 @@ import time
 import math
 
 active_ = False
+""" Boolean to check if the service is active or not
+
+    :meta hide-value:
+"""
 
 # robot state variables
 position_ = Point()
+""" Message of type ``geometry_msgs::Point`` for the position
+
+    :meta hide-value:
+"""
+
 yaw_ = 0
+""" Variable to store the value of the yaw angle
+
+    :meta hide-value:
+"""
+
 # machine state
 state_ = 0
+""" | Variable to store the state of the robot:
+    | 0 - turn
+    | 1 - go straight
+    | 2 - done
+    
+    :meta hide-value:
+"""
+
 # goal
 desired_position_ = Point()
+""" Message of type ``geometry_msgs::Point`` to set the desired position of the ROS parameter
+
+    :meta hide-value:
+"""
+
 desired_position_.x = rospy.get_param('des_pos_x')
 desired_position_.y = rospy.get_param('des_pos_y')
 desired_position_.z = 0
@@ -36,11 +88,26 @@ ub_d = 0.6
 
 # publishers
 pub = None
+""" Publisher to the topic ``/cmd_vel``
+
+    :meta hide-value:
+"""
 
 # service callbacks
 
 
 def go_to_point_switch(req):
+    """Callback function for the service
+    
+    The function is called when the service is called. It sets the variable ``active_`` to true 
+    and returns reply message
+    
+    Args:
+        req: Request message
+        
+    Returns:
+        The reply message
+    """
     global active_
     active_ = req.data
     res = SetBoolResponse()
@@ -52,6 +119,16 @@ def go_to_point_switch(req):
 
 
 def clbk_odom(msg):
+    """Callback function to retrieve the position and the pose of the robot
+    
+    The function is called when a ``nav_msgs::Odometry`` message is published on the topic ``/odom``.
+    It retrieves the *pose* and the *position* from the message and stores them in the global variables ``position_`` and ``pose_``.
+    Finally, it computes the *yaw* angle from the pose, using quaternions.
+    
+    Args:
+        msg: Message of type `nav_msgs::Odometry <http://docs.ros.org/en/noetic/api/nav_msgs/html/msg/Odometry.html>`_
+    """
+    
     global position_
     global yaw_
 
@@ -69,18 +146,44 @@ def clbk_odom(msg):
 
 
 def change_state(state):
+    """Function to change the state
+    
+    Args:
+        state: Integer value representing the state to change to.
+    """
     global state_
     state_ = state
     print ('State changed to [%s]' % state_)
 
 
 def normalize_angle(angle):
+    """Function to normalize an angle
+    
+    The function normalizes the *angle* given in input using the ``math`` library
+    
+    Args:
+        angle: Float number representing the angle to normalize
+        
+    Returns:
+        The normalized angle
+    """
+    
     if(math.fabs(angle) > math.pi):
         angle = angle - (2 * math.pi * angle) / (math.fabs(angle))
     return angle
 
 
 def fix_yaw(des_pos):
+    """Function to turn the robot
+    
+    The function computes the desired yaw angle and publishes the appropriate 
+    angular velocity to the topic ``/cmd_vel``. Once the desired yaw is reached, 
+    the function changes the state to 1.
+    
+    Args:
+        des_pos: Message of type `geometry_msgs::Point <http://docs.ros.org/en/noetic/api/geometry_msgs/html/msg/Point.html>`_
+    """
+    
     global yaw_, pub, yaw_precision_2_, state_
     desired_yaw = math.atan2(des_pos.y - position_.y, des_pos.x - position_.x)
     err_yaw = normalize_angle(desired_yaw - yaw_)
@@ -104,6 +207,15 @@ def fix_yaw(des_pos):
 
 
 def go_straight_ahead(des_pos):
+    """Function to move the robot straight
+    
+    The function makes the robot move straight to the desired position by publishing the appropriate linear 
+    velocity to the topic ``/cmd_vel``. If the yaw angle is wrong, the function changes the state to 0. 
+    If the position is reached, the function changes the state to 2.
+    
+    Args:
+        des_pos: Message of type `geometry_msgs::Point <http://docs.ros.org/en/noetic/api/geometry_msgs/html/msg/Point.html>`_
+    """
     global yaw_, pub, yaw_precision_, state_
     desired_yaw = math.atan2(des_pos.y - position_.y, des_pos.x - position_.x)
     err_yaw = desired_yaw - yaw_
@@ -129,6 +241,12 @@ def go_straight_ahead(des_pos):
 
 
 def done():
+    """Function to stop the robot
+    
+    The function publishes a null *velocity* as a ``geometry_msgs::Twist`` message to the ``/cmd_vel`` topic
+    to stop the robot.
+    """
+    
     twist_msg = Twist()
     twist_msg.linear.x = 0
     twist_msg.angular.z = 0
@@ -136,6 +254,13 @@ def done():
                 
 
 def main():
+    """Main function
+    
+    The function is used to *initialize* the subscriber, the publisher and the service. 
+    After the initialization, if the ``active_`` variable is set to true, the function 
+    checks the ``state`` variable and calls the appropriate function.
+    """
+    
     global pub, active_
 
     rospy.init_node('go_to_point')

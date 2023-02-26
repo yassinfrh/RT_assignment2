@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>scripts.client &mdash; assignment_2_2022 1.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            assignment_2_2022
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">assignment_2_2022</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">scripts.client</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for scripts.client</h1><div class="highlight"><pre>
+<span></span><span class="ch">#! /usr/bin/env python</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">.. module:: client</span>
+<span class="sd">	:platform: Unix</span>
+<span class="sd">	:synopsis: Python module for setting the robot goal position</span>
+<span class="sd">    </span>
+<span class="sd">.. moduleauthor:: Yassin Farah &lt;s4801788@studenti.unige.it&gt;</span>
+
+<span class="sd">This node implements an action client to set the goal position of the robot and </span>
+<span class="sd">to publish the position and the velocity as a custom message.</span>
+
+<span class="sd">Subscribes to:</span>
+<span class="sd">	| /odom</span>
+<span class="sd">    </span>
+<span class="sd">Publishes to:</span>
+<span class="sd">	| /pos_vel</span>
+<span class="sd">    </span>
+<span class="sd">Action server:</span>
+<span class="sd">	| /reaching_goal</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">rospy</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">actionlib</span>
+<span class="kn">import</span> <span class="nn">actionlib.msg</span>
+<span class="kn">import</span> <span class="nn">assignment_2_2022.msg</span>
+<span class="kn">from</span> <span class="nn">std_srvs.srv</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">select</span>
+<span class="kn">from</span> <span class="nn">nav_msgs.msg</span> <span class="kn">import</span> <span class="n">Odometry</span>
+<span class="kn">from</span> <span class="nn">geometry_msgs.msg</span> <span class="kn">import</span> <span class="n">Point</span><span class="p">,</span> <span class="n">Pose</span><span class="p">,</span> <span class="n">Twist</span>
+<span class="c1">#import custom message</span>
+<span class="kn">from</span> <span class="nn">assignment_2_2022.msg</span> <span class="kn">import</span> <span class="n">Pos_vel</span>
+
+<span class="c1"># Callback for the odometry subscriber</span>
+<div class="viewcode-block" id="clbk_odom"><a class="viewcode-back" href="../../index.html#scripts.client.clbk_odom">[docs]</a><span class="k">def</span> <span class="nf">clbk_odom</span><span class="p">(</span><span class="n">msg</span><span class="p">):</span>
+<span class="w">	</span><span class="sd">&quot;&quot;&quot;Callback function to retrieve the position and the pose of the robot</span>
+<span class="sd">    </span>
+<span class="sd">	The function is called when a ``nav_msgs::Odometry`` message is published on the topic ``/odom``.</span>
+<span class="sd">	It retrieves the *position* and the *linear velocity* from the message and publishes them as a custom message </span>
+<span class="sd">	on the topic ``/pos_vel``.</span>
+<span class="sd">    </span>
+<span class="sd">	Args:</span>
+<span class="sd">		msg: Message of type `nav_msgs::Odometry &lt;http://docs.ros.org/en/noetic/api/nav_msgs/html/msg/Odometry.html&gt;`_</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="k">global</span> <span class="n">pub</span>
+	<span class="c1"># Get the position from the msg</span>
+	<span class="n">position_</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">position</span>
+	<span class="c1"># Get the twist from the msg</span>
+	<span class="n">vel_lin</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">twist</span><span class="o">.</span><span class="n">twist</span><span class="o">.</span><span class="n">linear</span>
+	<span class="c1"># Create custom message</span>
+	<span class="n">pos_vel</span> <span class="o">=</span> <span class="n">Pos_vel</span><span class="p">()</span>
+	<span class="n">pos_vel</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">position_</span><span class="o">.</span><span class="n">x</span>
+	<span class="n">pos_vel</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">position_</span><span class="o">.</span><span class="n">y</span>
+	<span class="n">pos_vel</span><span class="o">.</span><span class="n">vel_x</span> <span class="o">=</span> <span class="n">vel_lin</span><span class="o">.</span><span class="n">x</span>
+	<span class="n">pos_vel</span><span class="o">.</span><span class="n">vel_y</span> <span class="o">=</span> <span class="n">vel_lin</span><span class="o">.</span><span class="n">y</span>
+	<span class="c1"># Publish the custom message</span>
+	<span class="n">pub</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="n">pos_vel</span><span class="p">)</span></div>
+
+<span class="c1"># Function to extract numbers from string</span>
+<div class="viewcode-block" id="extract_numbers"><a class="viewcode-back" href="../../index.html#scripts.client.extract_numbers">[docs]</a><span class="k">def</span> <span class="nf">extract_numbers</span><span class="p">(</span><span class="n">input_str</span><span class="p">):</span>
+<span class="w">	</span><span class="sd">&quot;&quot;&quot;Function to extract numbers from a string</span>
+<span class="sd">    </span>
+<span class="sd">	The function extracts numbers from a string with a defined format (&quot;x,y&quot;) and returns them as a list.</span>
+<span class="sd">    </span>
+<span class="sd">	Args:</span>
+<span class="sd">		input_str: String from which the function extracts the numbers</span>
+<span class="sd">	</span>
+<span class="sd">	Returns:</span>
+<span class="sd">		A list of the float numbers in the string. If the casting went wrong, it returns None.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="c1"># Separate the string in two</span>
+	<span class="n">nums</span> <span class="o">=</span> <span class="n">input_str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+	<span class="c1"># Variables to store the extracted numbers</span>
+	<span class="n">num1</span> <span class="o">=</span> <span class="mf">0.0</span>
+	<span class="n">num2</span> <span class="o">=</span> <span class="mf">0.0</span>
+	<span class="c1"># If input string is wrong format</span>
+	<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
+		<span class="k">return</span>
+	<span class="c1"># Convert the two strings to numbers</span>
+	<span class="k">try</span><span class="p">:</span>
+		<span class="n">num1</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+	<span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+		<span class="c1"># If casting went wrong</span>
+		<span class="k">return</span>
+	<span class="k">try</span><span class="p">:</span>
+		<span class="n">num2</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+	<span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+		<span class="c1"># If casting went wrong</span>
+		<span class="k">return</span>
+		
+	<span class="k">return</span> <span class="p">[</span><span class="n">num1</span><span class="p">,</span> <span class="n">num2</span><span class="p">]</span></div>
+
+<span class="c1"># Function to implement the action client</span>
+<div class="viewcode-block" id="client"><a class="viewcode-back" href="../../index.html#scripts.client.client">[docs]</a><span class="k">def</span> <span class="nf">client</span><span class="p">():</span>
+<span class="w">	</span><span class="sd">&quot;&quot;&quot;Function that implements the action client</span>
+<span class="sd">    </span>
+<span class="sd">	The function implements the action client by initializing the client and </span>
+<span class="sd">	asking the user, through a command window, to input the desired position or </span>
+<span class="sd">	to cancel the previous goal. When the user inputs the desired position, the client </span>
+<span class="sd">	sends the goal to the action server. If the user cancels the request, the client </span>
+<span class="sd">	send a cancel request to the action server.</span>
+
+<span class="sd">	&quot;&quot;&quot;</span>
+	
+	<span class="c1"># Create the action client</span>
+	<span class="n">client</span> <span class="o">=</span> <span class="n">actionlib</span><span class="o">.</span><span class="n">SimpleActionClient</span><span class="p">(</span><span class="s1">&#39;/reaching_goal&#39;</span><span class="p">,</span> <span class="n">assignment_2_2022</span><span class="o">.</span><span class="n">msg</span><span class="o">.</span><span class="n">PlanningAction</span><span class="p">)</span>
+	<span class="c1"># Wait for the server to be started</span>
+	<span class="n">client</span><span class="o">.</span><span class="n">wait_for_server</span><span class="p">()</span>
+	
+	<span class="c1"># Flag to store if the goal was already canceled</span>
+	<span class="n">canceled</span> <span class="o">=</span> <span class="kc">False</span>
+	<span class="c1"># Message to print to the user</span>
+	<span class="n">message_string</span> <span class="o">=</span> <span class="s2">&quot;Insert the target position &#39;x,y&#39; or insert &#39;c&#39; to cancel it:&quot;</span>
+	<span class="nb">print</span><span class="p">(</span><span class="n">message_string</span><span class="p">)</span>
+	
+	<span class="k">while</span> <span class="ow">not</span> <span class="n">rospy</span><span class="o">.</span><span class="n">is_shutdown</span><span class="p">():</span>
+		<span class="c1"># Listen for keyboard input in non-blocking mode</span>
+		<span class="nb">input</span> <span class="o">=</span> <span class="n">select</span><span class="o">.</span><span class="n">select</span><span class="p">([</span><span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="p">],</span> <span class="p">[],</span> <span class="p">[],</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+		<span class="c1"># If user entered some value</span>
+		<span class="k">if</span> <span class="nb">input</span><span class="p">:</span>
+			<span class="c1"># Get the input string</span>
+			<span class="n">value</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+			<span class="n">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+ 			
+ 			<span class="c1"># If user entered &#39;c&#39;, cancel the goal</span>
+			<span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="s2">&quot;c&quot;</span><span class="p">:</span>
+				<span class="k">if</span> <span class="n">canceled</span><span class="p">:</span>
+					<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Goal not existing!&quot;</span><span class="p">)</span>
+				<span class="k">else</span><span class="p">:</span>
+					<span class="c1"># Cancel the goal</span>
+					<span class="n">client</span><span class="o">.</span><span class="n">cancel_goal</span><span class="p">()</span>
+					<span class="n">canceled</span> <span class="o">=</span> <span class="kc">True</span>
+			<span class="k">else</span><span class="p">:</span>
+				<span class="c1"># Extract numbers from the string</span>
+				<span class="n">nums</span> <span class="o">=</span> <span class="n">extract_numbers</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+				<span class="k">if</span> <span class="n">nums</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+					<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Input is in the wrong format!&quot;</span><span class="p">)</span>
+				<span class="k">else</span><span class="p">:</span>
+					<span class="c1"># Create the goal to send to the server</span>
+					<span class="n">goal</span> <span class="o">=</span> <span class="n">assignment_2_2022</span><span class="o">.</span><span class="n">msg</span><span class="o">.</span><span class="n">PlanningGoal</span><span class="p">()</span>
+					<span class="n">goal</span><span class="o">.</span><span class="n">target_pose</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+					<span class="n">goal</span><span class="o">.</span><span class="n">target_pose</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+					
+					<span class="c1"># Send the goal to the action server</span>
+					<span class="n">client</span><span class="o">.</span><span class="n">send_goal</span><span class="p">(</span><span class="n">goal</span><span class="p">)</span>
+					<span class="n">canceled</span> <span class="o">=</span> <span class="kc">False</span>
+			<span class="c1"># Print again the message to the user</span>
+			<span class="nb">print</span><span class="p">(</span><span class="n">message_string</span><span class="p">)</span></div>
+					
+
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../index.html#scripts.client.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+<span class="w">	</span><span class="sd">&quot;&quot;&quot;Main function</span>
+<span class="sd">	</span>
+<span class="sd">	The function initializes the publisher and the subscriber and then calls the function ``client()``.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	
+	<span class="k">global</span> <span class="n">pub</span>
+	<span class="c1"># Initialize the node</span>
+	<span class="n">rospy</span><span class="o">.</span><span class="n">init_node</span><span class="p">(</span><span class="s1">&#39;action_client&#39;</span><span class="p">)</span>
+	<span class="c1"># Publisher for the custom message</span>
+	<span class="n">pub</span> <span class="o">=</span> <span class="n">rospy</span><span class="o">.</span><span class="n">Publisher</span><span class="p">(</span><span class="s2">&quot;/pos_vel&quot;</span><span class="p">,</span> <span class="n">Pos_vel</span><span class="p">,</span> <span class="n">queue_size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+	<span class="c1"># Subscriber to retrieve position and speed</span>
+	<span class="n">sub_odom</span> <span class="o">=</span> <span class="n">rospy</span><span class="o">.</span><span class="n">Subscriber</span><span class="p">(</span><span class="s1">&#39;/odom&#39;</span><span class="p">,</span> <span class="n">Odometry</span><span class="p">,</span> <span class="n">clbk_odom</span><span class="p">)</span>
+	<span class="c1"># Start the action client</span>
+	<span class="n">client</span><span class="p">()</span></div>
+		
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+	<span class="n">main</span><span class="p">()</span>	
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Yassin Farah.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

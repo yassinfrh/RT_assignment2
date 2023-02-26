@@ -29,3 +29,33 @@ Bug_as Module
 
 .. automodule:: scripts.bug_as
    :members:
+   
+Client Module
+=============
+
+.. automodule:: scripts.client
+   :members:
+   
+Go_to_point_service Module
+==========================
+
+.. automodule:: scripts.go_to_point_service
+   :members:
+   
+Goals_service Module
+====================
+
+.. automodule:: scripts.goals_service
+   :members:
+   
+Info_node Module
+================
+
+.. automodule:: scripts.info_node
+   :members:
+   
+Wall_follow_service Module
+==========================
+
+.. automodule:: scripts.wall_follow_service
+   :members:

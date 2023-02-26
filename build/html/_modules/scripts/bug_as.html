@@ -114,48 +114,68 @@
 
 <span class="n">srv_client_go_to_point_</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="sd">&quot;&quot;&quot; Service for moving the robot to a point</span>
+
+<span class="sd">    :meta hide-value:</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="n">srv_client_wall_follower_</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="sd">&quot;&quot;&quot; Service for making the robot follow a wall</span>
+
+<span class="sd">    :meta hide-value:</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="n">yaw_</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="sd">&quot;&quot;&quot; Variable to store the value of the yaw angle</span>
+
+<span class="sd">    :meta hide-value:</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="n">yaw_error_allowed_</span> <span class="o">=</span> <span class="mi">5</span> <span class="o">*</span> <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">180</span><span class="p">)</span>  <span class="c1"># 5 degrees</span>
 <span class="sd">&quot;&quot;&quot; Error for the yaw angle</span>
+
+<span class="sd">    :meta hide-value:</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="n">position_</span> <span class="o">=</span> <span class="n">Point</span><span class="p">()</span>
-<span class="sd">&quot;&quot;&quot; Message of type ``geometry_msgs::Twist`` for the position</span>
+<span class="sd">&quot;&quot;&quot; Message of type ``geometry_msgs::Point`` for the position</span>
+
+<span class="sd">    :meta hide-value:</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="n">pose_</span> <span class="o">=</span> <span class="n">Pose</span><span class="p">()</span>
 <span class="sd">&quot;&quot;&quot; Message of type ``geometry_msgs::Pose`` for the pose</span>
+
+<span class="sd">    :meta hide-value:</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="n">desired_position_</span> <span class="o">=</span> <span class="n">Point</span><span class="p">()</span>
-<span class="sd">&quot;&quot;&quot; Message of type ``geometry_msgs::Twist`` to set the desired position of the ROS parameter</span>
+<span class="sd">&quot;&quot;&quot; Message of type ``geometry_msgs::Point`` to set the desired position of the ROS parameter</span>
+
+<span class="sd">    :meta hide-value:</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="n">desired_position_</span><span class="o">.</span><span class="n">z</span> <span class="o">=</span> <span class="mi">0</span>
 
 <span class="n">regions_</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="sd">&quot;&quot;&quot; Dictionary to store the regions of the laser</span>
+
+<span class="sd">    :meta hide-value:</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="n">state_desc_</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Go to point&#39;</span><span class="p">,</span> <span class="s1">&#39;wall following&#39;</span><span class="p">,</span> <span class="s1">&#39;done&#39;</span><span class="p">]</span>
 <span class="sd">&quot;&quot;&quot; String descriptor of the state</span>
+
+<span class="sd">    :meta hide-value:</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="n">state_</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="sd">&quot;&quot;&quot; Variable to store the state of the robot:</span>
-<span class="sd">    0 - go to point</span>
-<span class="sd">    1 - wall following</span>
-<span class="sd">    2 - done</span>
-<span class="sd">    3 - canceled</span>
+<span class="sd">&quot;&quot;&quot; | Variable to store the state of the robot:</span>
+<span class="sd">    | 0 - go to point</span>
+<span class="sd">    | 1 - wall following</span>
+<span class="sd">    | 2 - done</span>
+<span class="sd">    | 3 - canceled</span>
+<span class="sd">    </span>
+<span class="sd">    :meta hide-value:</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="c1"># 0 - go to point</span>

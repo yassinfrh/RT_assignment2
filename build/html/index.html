@@ -68,6 +68,45 @@
 <li><a class="reference internal" href="#scripts.bug_as.yaw_error_allowed_"><code class="docutils literal notranslate"><span class="pre">yaw_error_allowed_</span></code></a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#module-scripts.client">Client Module</a><ul>
+<li><a class="reference internal" href="#scripts.client.clbk_odom"><code class="docutils literal notranslate"><span class="pre">clbk_odom()</span></code></a></li>
+<li><a class="reference internal" href="#scripts.client.client"><code class="docutils literal notranslate"><span class="pre">client()</span></code></a></li>
+<li><a class="reference internal" href="#scripts.client.extract_numbers"><code class="docutils literal notranslate"><span class="pre">extract_numbers()</span></code></a></li>
+<li><a class="reference internal" href="#scripts.client.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#go-to-point-service-module">Go_to_point_service Module</a></li>
+<li><a class="reference internal" href="#module-scripts.goals_service">Goals_service Module</a><ul>
+<li><a class="reference internal" href="#scripts.goals_service.canc_n"><code class="docutils literal notranslate"><span class="pre">canc_n</span></code></a></li>
+<li><a class="reference internal" href="#scripts.goals_service.clbk_result"><code class="docutils literal notranslate"><span class="pre">clbk_result()</span></code></a></li>
+<li><a class="reference internal" href="#scripts.goals_service.get_goals"><code class="docutils literal notranslate"><span class="pre">get_goals()</span></code></a></li>
+<li><a class="reference internal" href="#scripts.goals_service.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+<li><a class="reference internal" href="#scripts.goals_service.reach_n"><code class="docutils literal notranslate"><span class="pre">reach_n</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-scripts.info_node">Info_node Module</a><ul>
+<li><a class="reference internal" href="#scripts.info_node.clbk_posvel"><code class="docutils literal notranslate"><span class="pre">clbk_posvel()</span></code></a></li>
+<li><a class="reference internal" href="#scripts.info_node.freq"><code class="docutils literal notranslate"><span class="pre">freq</span></code></a></li>
+<li><a class="reference internal" href="#scripts.info_node.last_printed"><code class="docutils literal notranslate"><span class="pre">last_printed</span></code></a></li>
+<li><a class="reference internal" href="#scripts.info_node.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-scripts.wall_follow_service">Wall_follow_service Module</a><ul>
+<li><a class="reference internal" href="#scripts.wall_follow_service.active_"><code class="docutils literal notranslate"><span class="pre">active_</span></code></a></li>
+<li><a class="reference internal" href="#scripts.wall_follow_service.change_state"><code class="docutils literal notranslate"><span class="pre">change_state()</span></code></a></li>
+<li><a class="reference internal" href="#scripts.wall_follow_service.clbk_laser"><code class="docutils literal notranslate"><span class="pre">clbk_laser()</span></code></a></li>
+<li><a class="reference internal" href="#scripts.wall_follow_service.find_wall"><code class="docutils literal notranslate"><span class="pre">find_wall()</span></code></a></li>
+<li><a class="reference internal" href="#scripts.wall_follow_service.follow_the_wall"><code class="docutils literal notranslate"><span class="pre">follow_the_wall()</span></code></a></li>
+<li><a class="reference internal" href="#scripts.wall_follow_service.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+<li><a class="reference internal" href="#scripts.wall_follow_service.pub_"><code class="docutils literal notranslate"><span class="pre">pub_</span></code></a></li>
+<li><a class="reference internal" href="#scripts.wall_follow_service.regions_"><code class="docutils literal notranslate"><span class="pre">regions_</span></code></a></li>
+<li><a class="reference internal" href="#scripts.wall_follow_service.state_"><code class="docutils literal notranslate"><span class="pre">state_</span></code></a></li>
+<li><a class="reference internal" href="#scripts.wall_follow_service.state_dict_"><code class="docutils literal notranslate"><span class="pre">state_dict_</span></code></a></li>
+<li><a class="reference internal" href="#scripts.wall_follow_service.take_action"><code class="docutils literal notranslate"><span class="pre">take_action()</span></code></a></li>
+<li><a class="reference internal" href="#scripts.wall_follow_service.turn_left"><code class="docutils literal notranslate"><span class="pre">turn_left()</span></code></a></li>
+<li><a class="reference internal" href="#scripts.wall_follow_service.wall_follower_switch"><code class="docutils literal notranslate"><span class="pre">wall_follower_switch()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </div>
         </div>
@@ -182,8 +221,10 @@ Finally, it computes the <em>yaw</em> angle from the pose, using quaternions.</p
 
 <dl class="py data">
 <dt class="sig sig-object py" id="scripts.bug_as.desired_position_">
-<span class="sig-prename descclassname"><span class="pre">scripts.bug_as.</span></span><span class="sig-name descname"><span class="pre">desired_position_</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">x:</span> <span class="pre">0.0</span> <span class="pre">y:</span> <span class="pre">0.0</span> <span class="pre">z:</span> <span class="pre">0</span></em><a class="headerlink" href="#scripts.bug_as.desired_position_" title="Permalink to this definition"></a></dt>
-<dd><p>Message of type <code class="docutils literal notranslate"><span class="pre">geometry_msgs::Twist</span></code> to set the desired position of the ROS parameter</p>
+<span class="sig-prename descclassname"><span class="pre">scripts.bug_as.</span></span><span class="sig-name descname"><span class="pre">desired_position_</span></span><a class="headerlink" href="#scripts.bug_as.desired_position_" title="Permalink to this definition"></a></dt>
+<dd><p>Message of type <code class="docutils literal notranslate"><span class="pre">geometry_msgs::Point</span></code> to set the desired position of the ROS parameter</p>
+<dl class="field-list simple">
+</dl>
 </dd></dl>
 
 <dl class="py function">
@@ -236,60 +277,423 @@ to 1, until the obstacle is completely overtaken. Once the goal has been reached
 
 <dl class="py data">
 <dt class="sig sig-object py" id="scripts.bug_as.pose_">
-<span class="sig-prename descclassname"><span class="pre">scripts.bug_as.</span></span><span class="sig-name descname"><span class="pre">pose_</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">position:</span>&#160;&#160;&#160; <span class="pre">x:</span> <span class="pre">0.0</span>&#160;&#160; <span class="pre">y:</span> <span class="pre">0.0</span>&#160;&#160; <span class="pre">z:</span> <span class="pre">0.0</span> <span class="pre">orientation:</span>&#160;&#160;&#160; <span class="pre">x:</span> <span class="pre">0.0</span>&#160;&#160; <span class="pre">y:</span> <span class="pre">0.0</span>&#160;&#160; <span class="pre">z:</span> <span class="pre">0.0</span>&#160;&#160; <span class="pre">w:</span> <span class="pre">0.0</span></em><a class="headerlink" href="#scripts.bug_as.pose_" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">scripts.bug_as.</span></span><span class="sig-name descname"><span class="pre">pose_</span></span><a class="headerlink" href="#scripts.bug_as.pose_" title="Permalink to this definition"></a></dt>
 <dd><p>Message of type <code class="docutils literal notranslate"><span class="pre">geometry_msgs::Pose</span></code> for the pose</p>
+<dl class="field-list simple">
+</dl>
 </dd></dl>
 
 <dl class="py data">
 <dt class="sig sig-object py" id="scripts.bug_as.position_">
-<span class="sig-prename descclassname"><span class="pre">scripts.bug_as.</span></span><span class="sig-name descname"><span class="pre">position_</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">x:</span> <span class="pre">0.0</span> <span class="pre">y:</span> <span class="pre">0.0</span> <span class="pre">z:</span> <span class="pre">0.0</span></em><a class="headerlink" href="#scripts.bug_as.position_" title="Permalink to this definition"></a></dt>
-<dd><p>Message of type <code class="docutils literal notranslate"><span class="pre">geometry_msgs::Twist</span></code> for the position</p>
+<span class="sig-prename descclassname"><span class="pre">scripts.bug_as.</span></span><span class="sig-name descname"><span class="pre">position_</span></span><a class="headerlink" href="#scripts.bug_as.position_" title="Permalink to this definition"></a></dt>
+<dd><p>Message of type <code class="docutils literal notranslate"><span class="pre">geometry_msgs::Point</span></code> for the position</p>
+<dl class="field-list simple">
+</dl>
 </dd></dl>
 
 <dl class="py data">
 <dt class="sig sig-object py" id="scripts.bug_as.regions_">
-<span class="sig-prename descclassname"><span class="pre">scripts.bug_as.</span></span><span class="sig-name descname"><span class="pre">regions_</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#scripts.bug_as.regions_" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">scripts.bug_as.</span></span><span class="sig-name descname"><span class="pre">regions_</span></span><a class="headerlink" href="#scripts.bug_as.regions_" title="Permalink to this definition"></a></dt>
 <dd><p>Dictionary to store the regions of the laser</p>
+<dl class="field-list simple">
+</dl>
 </dd></dl>
 
 <dl class="py data">
 <dt class="sig sig-object py" id="scripts.bug_as.srv_client_go_to_point_">
-<span class="sig-prename descclassname"><span class="pre">scripts.bug_as.</span></span><span class="sig-name descname"><span class="pre">srv_client_go_to_point_</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#scripts.bug_as.srv_client_go_to_point_" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">scripts.bug_as.</span></span><span class="sig-name descname"><span class="pre">srv_client_go_to_point_</span></span><a class="headerlink" href="#scripts.bug_as.srv_client_go_to_point_" title="Permalink to this definition"></a></dt>
 <dd><p>Service for moving the robot to a point</p>
+<dl class="field-list simple">
+</dl>
 </dd></dl>
 
 <dl class="py data">
 <dt class="sig sig-object py" id="scripts.bug_as.srv_client_wall_follower_">
-<span class="sig-prename descclassname"><span class="pre">scripts.bug_as.</span></span><span class="sig-name descname"><span class="pre">srv_client_wall_follower_</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#scripts.bug_as.srv_client_wall_follower_" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">scripts.bug_as.</span></span><span class="sig-name descname"><span class="pre">srv_client_wall_follower_</span></span><a class="headerlink" href="#scripts.bug_as.srv_client_wall_follower_" title="Permalink to this definition"></a></dt>
 <dd><p>Service for making the robot follow a wall</p>
+<dl class="field-list simple">
+</dl>
 </dd></dl>
 
 <dl class="py data">
 <dt class="sig sig-object py" id="scripts.bug_as.state_">
-<span class="sig-prename descclassname"><span class="pre">scripts.bug_as.</span></span><span class="sig-name descname"><span class="pre">state_</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#scripts.bug_as.state_" title="Permalink to this definition"></a></dt>
-<dd><p>Variable to store the state of the robot:
-0 - go to point
-1 - wall following
-2 - done
-3 - canceled</p>
+<span class="sig-prename descclassname"><span class="pre">scripts.bug_as.</span></span><span class="sig-name descname"><span class="pre">state_</span></span><a class="headerlink" href="#scripts.bug_as.state_" title="Permalink to this definition"></a></dt>
+<dd><div class="line-block">
+<div class="line">Variable to store the state of the robot:</div>
+<div class="line">0 - go to point</div>
+<div class="line">1 - wall following</div>
+<div class="line">2 - done</div>
+<div class="line">3 - canceled</div>
+</div>
+<dl class="field-list simple">
+</dl>
 </dd></dl>
 
 <dl class="py data">
 <dt class="sig sig-object py" id="scripts.bug_as.state_desc_">
-<span class="sig-prename descclassname"><span class="pre">scripts.bug_as.</span></span><span class="sig-name descname"><span class="pre">state_desc_</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['Go</span> <span class="pre">to</span> <span class="pre">point',</span> <span class="pre">'wall</span> <span class="pre">following',</span> <span class="pre">'done']</span></em><a class="headerlink" href="#scripts.bug_as.state_desc_" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">scripts.bug_as.</span></span><span class="sig-name descname"><span class="pre">state_desc_</span></span><a class="headerlink" href="#scripts.bug_as.state_desc_" title="Permalink to this definition"></a></dt>
 <dd><p>String descriptor of the state</p>
+<dl class="field-list simple">
+</dl>
 </dd></dl>
 
 <dl class="py data">
 <dt class="sig sig-object py" id="scripts.bug_as.yaw_">
-<span class="sig-prename descclassname"><span class="pre">scripts.bug_as.</span></span><span class="sig-name descname"><span class="pre">yaw_</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#scripts.bug_as.yaw_" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">scripts.bug_as.</span></span><span class="sig-name descname"><span class="pre">yaw_</span></span><a class="headerlink" href="#scripts.bug_as.yaw_" title="Permalink to this definition"></a></dt>
 <dd><p>Variable to store the value of the yaw angle</p>
+<dl class="field-list simple">
+</dl>
 </dd></dl>
 
 <dl class="py data">
 <dt class="sig sig-object py" id="scripts.bug_as.yaw_error_allowed_">
-<span class="sig-prename descclassname"><span class="pre">scripts.bug_as.</span></span><span class="sig-name descname"><span class="pre">yaw_error_allowed_</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.08726646259971647</span></em><a class="headerlink" href="#scripts.bug_as.yaw_error_allowed_" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">scripts.bug_as.</span></span><span class="sig-name descname"><span class="pre">yaw_error_allowed_</span></span><a class="headerlink" href="#scripts.bug_as.yaw_error_allowed_" title="Permalink to this definition"></a></dt>
 <dd><p>Error for the yaw angle</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-scripts.client">
+<span id="client-module"></span><h1>Client Module<a class="headerlink" href="#module-scripts.client" title="Permalink to this heading"></a></h1>
+<span class="target" id="module-client"></span><p>This node implements an action client to set the goal position of the robot and
+to publish the position and the velocity as a custom message.</p>
+<dl>
+<dt>Subscribes to:</dt><dd><div class="line-block">
+<div class="line">/odom</div>
+</div>
+</dd>
+<dt>Publishes to:</dt><dd><div class="line-block">
+<div class="line">/pos_vel</div>
+</div>
+</dd>
+<dt>Action server:</dt><dd><div class="line-block">
+<div class="line">/reaching_goal</div>
+</div>
+</dd>
+</dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="scripts.client.clbk_odom">
+<span class="sig-prename descclassname"><span class="pre">scripts.client.</span></span><span class="sig-name descname"><span class="pre">clbk_odom</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/client.html#clbk_odom"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.client.clbk_odom" title="Permalink to this definition"></a></dt>
+<dd><p>Callback function to retrieve the position and the pose of the robot</p>
+<p>The function is called when a <code class="docutils literal notranslate"><span class="pre">nav_msgs::Odometry</span></code> message is published on the topic <code class="docutils literal notranslate"><span class="pre">/odom</span></code>.
+It retrieves the <em>position</em> and the <em>linear velocity</em> from the message and publishes them as a custom message
+on the topic <code class="docutils literal notranslate"><span class="pre">/pos_vel</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>msg</strong> – <p>Message of type <a class="reference external" href="http://docs.ros.org/en/noetic/api/nav_msgs/html/msg/Odometry.html">nav_msgs::Odometry</a></p>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scripts.client.client">
+<span class="sig-prename descclassname"><span class="pre">scripts.client.</span></span><span class="sig-name descname"><span class="pre">client</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/client.html#client"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.client.client" title="Permalink to this definition"></a></dt>
+<dd><p>Function that implements the action client</p>
+<p>The function implements the action client by initializing the client and
+asking the user, through a command window, to input the desired position or
+to cancel the previous goal. When the user inputs the desired position, the client
+sends the goal to the action server. If the user cancels the request, the client
+send a cancel request to the action server.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scripts.client.extract_numbers">
+<span class="sig-prename descclassname"><span class="pre">scripts.client.</span></span><span class="sig-name descname"><span class="pre">extract_numbers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/client.html#extract_numbers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.client.extract_numbers" title="Permalink to this definition"></a></dt>
+<dd><p>Function to extract numbers from a string</p>
+<p>The function extracts numbers from a string with a defined format (“x,y”) and returns them as a list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>input_str</strong> – String from which the function extracts the numbers</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of the float numbers in the string. If the casting went wrong, it returns None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scripts.client.main">
+<span class="sig-prename descclassname"><span class="pre">scripts.client.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/client.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.client.main" title="Permalink to this definition"></a></dt>
+<dd><p>Main function</p>
+<p>The function initializes the publisher and the subscriber and then calls the function <code class="docutils literal notranslate"><span class="pre">client()</span></code>.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="go-to-point-service-module">
+<h1>Go_to_point_service Module<a class="headerlink" href="#go-to-point-service-module" title="Permalink to this heading"></a></h1>
+</div>
+<div class="section" id="module-scripts.goals_service">
+<span id="goals-service-module"></span><h1>Goals_service Module<a class="headerlink" href="#module-scripts.goals_service" title="Permalink to this heading"></a></h1>
+<span class="target" id="module-goals_service"></span><p>This node implements a service that, when called, prints the number of goals reached
+and the number of goals cancelled.</p>
+<dl>
+<dt>Subscribes to:</dt><dd><div class="line-block">
+<div class="line">reaching_goal/result</div>
+</div>
+</dd>
+<dt>Service:</dt><dd><div class="line-block">
+<div class="line">/goals</div>
+</div>
+</dd>
+</dl>
+<dl class="py data">
+<dt class="sig sig-object py" id="scripts.goals_service.canc_n">
+<span class="sig-prename descclassname"><span class="pre">scripts.goals_service.</span></span><span class="sig-name descname"><span class="pre">canc_n</span></span><a class="headerlink" href="#scripts.goals_service.canc_n" title="Permalink to this definition"></a></dt>
+<dd><p>Integer variable that stores the number of cancelled goals.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scripts.goals_service.clbk_result">
+<span class="sig-prename descclassname"><span class="pre">scripts.goals_service.</span></span><span class="sig-name descname"><span class="pre">clbk_result</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/goals_service.html#clbk_result"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.goals_service.clbk_result" title="Permalink to this definition"></a></dt>
+<dd><p>Callback function to retrieve the status of the goal</p>
+<p>The function is called when a result message is published on the topic <code class="docutils literal notranslate"><span class="pre">reaching_goal/result</span></code>
+and it checks the status of the result: if it’s 2, it increases the number of cancelled goals,
+if it’s 3, it increases the number of reached goals.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>msg</strong> – Message of type <code class="docutils literal notranslate"><span class="pre">assignment_2_2022::PlanningActionResult</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scripts.goals_service.get_goals">
+<span class="sig-prename descclassname"><span class="pre">scripts.goals_service.</span></span><span class="sig-name descname"><span class="pre">get_goals</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">req</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/goals_service.html#get_goals"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.goals_service.get_goals" title="Permalink to this definition"></a></dt>
+<dd><p>Callback function for the service</p>
+<p>The function is called when the service is called and it simply returns the message
+containing the variables <code class="docutils literal notranslate"><span class="pre">reach_n</span></code> and <code class="docutils literal notranslate"><span class="pre">canc_n</span></code>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scripts.goals_service.main">
+<span class="sig-prename descclassname"><span class="pre">scripts.goals_service.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/goals_service.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.goals_service.main" title="Permalink to this definition"></a></dt>
+<dd><p>Main function</p>
+<p>The function initializes the service and the subscriber and waits.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="scripts.goals_service.reach_n">
+<span class="sig-prename descclassname"><span class="pre">scripts.goals_service.</span></span><span class="sig-name descname"><span class="pre">reach_n</span></span><a class="headerlink" href="#scripts.goals_service.reach_n" title="Permalink to this definition"></a></dt>
+<dd><p>Integer variable that stores the number of reached goals.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-scripts.info_node">
+<span id="info-node-module"></span><h1>Info_node Module<a class="headerlink" href="#module-scripts.info_node" title="Permalink to this heading"></a></h1>
+<span class="target" id="module-info_node"></span><p>This node prints with a frequency set through a ROS parameter in the launch file
+the distance from the desired position and the average speed of the robot.</p>
+<dl>
+<dt>Subscribes to:</dt><dd><div class="line-block">
+<div class="line">/pos_vel</div>
+</div>
+</dd>
+<dt>Parameter:</dt><dd><div class="line-block">
+<div class="line">/publish_frequency</div>
+<div class="line">/des_pos_x</div>
+<div class="line">/des_pos_y</div>
+</div>
+</dd>
+</dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="scripts.info_node.clbk_posvel">
+<span class="sig-prename descclassname"><span class="pre">scripts.info_node.</span></span><span class="sig-name descname"><span class="pre">clbk_posvel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/info_node.html#clbk_posvel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.info_node.clbk_posvel" title="Permalink to this definition"></a></dt>
+<dd><p>Callback function to retrieve the position and the velocity of the robot</p>
+<p>The function is called when a message is published on the topic <code class="docutils literal notranslate"><span class="pre">/pos_vel</span></code>.
+It retrieves the desired position from the ROS parameters and the robot’s position
+from the message to compute the distance from the desired position.
+It retrieves the robot’s velocity to compute the average speed. It finally prints
+the info, with a certain frequency, on the command window.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="scripts.info_node.freq">
+<span class="sig-prename descclassname"><span class="pre">scripts.info_node.</span></span><span class="sig-name descname"><span class="pre">freq</span></span><a class="headerlink" href="#scripts.info_node.freq" title="Permalink to this definition"></a></dt>
+<dd><p>Float variable for the printing frequency</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="scripts.info_node.last_printed">
+<span class="sig-prename descclassname"><span class="pre">scripts.info_node.</span></span><span class="sig-name descname"><span class="pre">last_printed</span></span><a class="headerlink" href="#scripts.info_node.last_printed" title="Permalink to this definition"></a></dt>
+<dd><p>Integer variable for storing the last instant in which the info was printed</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scripts.info_node.main">
+<span class="sig-prename descclassname"><span class="pre">scripts.info_node.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/info_node.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.info_node.main" title="Permalink to this definition"></a></dt>
+<dd><p>Main function</p>
+<p>The function initializes the subscriber and retrieves the printing frequency
+from the ROS parameter and it waits.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-scripts.wall_follow_service">
+<span id="wall-follow-service-module"></span><h1>Wall_follow_service Module<a class="headerlink" href="#module-scripts.wall_follow_service" title="Permalink to this heading"></a></h1>
+<span class="target" id="module-wall_follow_service"></span><p>This node implements a service to make the robot follow a wall, not to bump into it.</p>
+<dl>
+<dt>Subscribes to:</dt><dd><div class="line-block">
+<div class="line">/scan</div>
+</div>
+</dd>
+<dt>Publishes to:</dt><dd><div class="line-block">
+<div class="line">/cmd_vel</div>
+</div>
+</dd>
+<dt>Service:</dt><dd><div class="line-block">
+<div class="line">/wall_follower_switch</div>
+</div>
+</dd>
+</dl>
+<dl class="py data">
+<dt class="sig sig-object py" id="scripts.wall_follow_service.active_">
+<span class="sig-prename descclassname"><span class="pre">scripts.wall_follow_service.</span></span><span class="sig-name descname"><span class="pre">active_</span></span><a class="headerlink" href="#scripts.wall_follow_service.active_" title="Permalink to this definition"></a></dt>
+<dd><p>Boolean to check if the service is active or not</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scripts.wall_follow_service.change_state">
+<span class="sig-prename descclassname"><span class="pre">scripts.wall_follow_service.</span></span><span class="sig-name descname"><span class="pre">change_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/wall_follow_service.html#change_state"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.wall_follow_service.change_state" title="Permalink to this definition"></a></dt>
+<dd><p>Function to change the state</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>state</strong> – Integer value representing the state to change to.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scripts.wall_follow_service.clbk_laser">
+<span class="sig-prename descclassname"><span class="pre">scripts.wall_follow_service.</span></span><span class="sig-name descname"><span class="pre">clbk_laser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/wall_follow_service.html#clbk_laser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.wall_follow_service.clbk_laser" title="Permalink to this definition"></a></dt>
+<dd><p>Callback function to retrieve the laser output</p>
+<p>The function is called when a <code class="docutils literal notranslate"><span class="pre">sensor_msgs::LaserScan</span></code> message is published on the topic <code class="docutils literal notranslate"><span class="pre">/scan</span></code>.
+It retrieves the laser output from the message, using the <em>ranges</em> parameter.
+Finally, it calls the function <code class="docutils literal notranslate"><span class="pre">take_action()</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>msg</strong> – <p>Message of type <a class="reference external" href="http://docs.ros.org/en/noetic/api/sensor_msgs/html/msg/LaserScan.html">sensor_msgs::LaserScan</a></p>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scripts.wall_follow_service.find_wall">
+<span class="sig-prename descclassname"><span class="pre">scripts.wall_follow_service.</span></span><span class="sig-name descname"><span class="pre">find_wall</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/wall_follow_service.html#find_wall"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.wall_follow_service.find_wall" title="Permalink to this definition"></a></dt>
+<dd><p>Function to find the wall</p>
+<p>The function creates a message of type <code class="docutils literal notranslate"><span class="pre">geometry_msgs::Twist</span></code>, sets the appropriate
+linear and angular velocities and returns the message.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The message of type <code class="docutils literal notranslate"><span class="pre">geometry_msgs::Twist</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scripts.wall_follow_service.follow_the_wall">
+<span class="sig-prename descclassname"><span class="pre">scripts.wall_follow_service.</span></span><span class="sig-name descname"><span class="pre">follow_the_wall</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/wall_follow_service.html#follow_the_wall"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.wall_follow_service.follow_the_wall" title="Permalink to this definition"></a></dt>
+<dd><p>Function to follow the wall</p>
+<p>The function creates a message of type <code class="docutils literal notranslate"><span class="pre">geometry_msgs::Twist</span></code>, sets the appropriate
+linear velocity and returns the message.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The message of type <code class="docutils literal notranslate"><span class="pre">geometry_msgs::Twist</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scripts.wall_follow_service.main">
+<span class="sig-prename descclassname"><span class="pre">scripts.wall_follow_service.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/wall_follow_service.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.wall_follow_service.main" title="Permalink to this definition"></a></dt>
+<dd><p>Main function</p>
+<p>The function initializes the publisher, the subscriber and the service.
+Then, if the variable <code class="docutils literal notranslate"><span class="pre">active_</span></code> is set to true, it checks the state
+and calls the appropriate function.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="scripts.wall_follow_service.pub_">
+<span class="sig-prename descclassname"><span class="pre">scripts.wall_follow_service.</span></span><span class="sig-name descname"><span class="pre">pub_</span></span><a class="headerlink" href="#scripts.wall_follow_service.pub_" title="Permalink to this definition"></a></dt>
+<dd><p>Publisher to the topic <code class="docutils literal notranslate"><span class="pre">/cmd_vel</span></code></p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="scripts.wall_follow_service.regions_">
+<span class="sig-prename descclassname"><span class="pre">scripts.wall_follow_service.</span></span><span class="sig-name descname"><span class="pre">regions_</span></span><a class="headerlink" href="#scripts.wall_follow_service.regions_" title="Permalink to this definition"></a></dt>
+<dd><p>Dictionary to store the regions of the laser</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="scripts.wall_follow_service.state_">
+<span class="sig-prename descclassname"><span class="pre">scripts.wall_follow_service.</span></span><span class="sig-name descname"><span class="pre">state_</span></span><a class="headerlink" href="#scripts.wall_follow_service.state_" title="Permalink to this definition"></a></dt>
+<dd><div class="line-block">
+<div class="line">Variable to store the state of the robot:</div>
+<div class="line">0 - find wall</div>
+<div class="line">1 - turn left</div>
+<div class="line">2 - follow the wall</div>
+</div>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="scripts.wall_follow_service.state_dict_">
+<span class="sig-prename descclassname"><span class="pre">scripts.wall_follow_service.</span></span><span class="sig-name descname"><span class="pre">state_dict_</span></span><a class="headerlink" href="#scripts.wall_follow_service.state_dict_" title="Permalink to this definition"></a></dt>
+<dd><p>Dictionary to store the description of each state</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scripts.wall_follow_service.take_action">
+<span class="sig-prename descclassname"><span class="pre">scripts.wall_follow_service.</span></span><span class="sig-name descname"><span class="pre">take_action</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/wall_follow_service.html#take_action"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.wall_follow_service.take_action" title="Permalink to this definition"></a></dt>
+<dd><p>Function to control the laser output</p>
+<p>The function checks which regions of the laser detected and obstacle and
+it changes the state appropriately.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scripts.wall_follow_service.turn_left">
+<span class="sig-prename descclassname"><span class="pre">scripts.wall_follow_service.</span></span><span class="sig-name descname"><span class="pre">turn_left</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/wall_follow_service.html#turn_left"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.wall_follow_service.turn_left" title="Permalink to this definition"></a></dt>
+<dd><p>Function to turn the robot left</p>
+<p>The function creates a message of type <code class="docutils literal notranslate"><span class="pre">geometry_msgs::Twist</span></code>, sets the appropriate
+angular velocity and returns the message.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The message of type <code class="docutils literal notranslate"><span class="pre">geometry_msgs::Twist</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scripts.wall_follow_service.wall_follower_switch">
+<span class="sig-prename descclassname"><span class="pre">scripts.wall_follow_service.</span></span><span class="sig-name descname"><span class="pre">wall_follower_switch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">req</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/wall_follow_service.html#wall_follower_switch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.wall_follow_service.wall_follower_switch" title="Permalink to this definition"></a></dt>
+<dd><p>Callback function for the service</p>
+<p>The function is called when the service is called. It sets the variable <code class="docutils literal notranslate"><span class="pre">active_</span></code> to true
+and returns reply message</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>req</strong> – Request message</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The reply message</p>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
