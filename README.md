@@ -30,6 +30,8 @@ Inside the module, you'll find six nodes:
 - `wall_follow_service.py` is the service node that, when called, makes the robot move around an obstacle (a wall, an object...)
 - `goals_service.py` is the service node that, when called, prints the number of times a goal has been reached and the number of times a goal has been canceled
 
+For more information, take a look at the [documentation](https://yassinfrh.github.io/RT_assignment2/).
+
 ## Install and run
 
 First of all, you need to run the master by typing:
