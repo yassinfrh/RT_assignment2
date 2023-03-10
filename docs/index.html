@@ -75,7 +75,23 @@
 <li><a class="reference internal" href="#scripts.client.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#go-to-point-service-module">Go_to_point_service Module</a></li>
+<li><a class="reference internal" href="#module-scripts.go_to_point_service">Go_to_point_service Module</a><ul>
+<li><a class="reference internal" href="#scripts.go_to_point_service.active_"><code class="docutils literal notranslate"><span class="pre">active_</span></code></a></li>
+<li><a class="reference internal" href="#scripts.go_to_point_service.change_state"><code class="docutils literal notranslate"><span class="pre">change_state()</span></code></a></li>
+<li><a class="reference internal" href="#scripts.go_to_point_service.clbk_odom"><code class="docutils literal notranslate"><span class="pre">clbk_odom()</span></code></a></li>
+<li><a class="reference internal" href="#scripts.go_to_point_service.desired_position_"><code class="docutils literal notranslate"><span class="pre">desired_position_</span></code></a></li>
+<li><a class="reference internal" href="#scripts.go_to_point_service.done"><code class="docutils literal notranslate"><span class="pre">done()</span></code></a></li>
+<li><a class="reference internal" href="#scripts.go_to_point_service.fix_yaw"><code class="docutils literal notranslate"><span class="pre">fix_yaw()</span></code></a></li>
+<li><a class="reference internal" href="#scripts.go_to_point_service.go_straight_ahead"><code class="docutils literal notranslate"><span class="pre">go_straight_ahead()</span></code></a></li>
+<li><a class="reference internal" href="#scripts.go_to_point_service.go_to_point_switch"><code class="docutils literal notranslate"><span class="pre">go_to_point_switch()</span></code></a></li>
+<li><a class="reference internal" href="#scripts.go_to_point_service.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+<li><a class="reference internal" href="#scripts.go_to_point_service.normalize_angle"><code class="docutils literal notranslate"><span class="pre">normalize_angle()</span></code></a></li>
+<li><a class="reference internal" href="#scripts.go_to_point_service.position_"><code class="docutils literal notranslate"><span class="pre">position_</span></code></a></li>
+<li><a class="reference internal" href="#scripts.go_to_point_service.pub"><code class="docutils literal notranslate"><span class="pre">pub</span></code></a></li>
+<li><a class="reference internal" href="#scripts.go_to_point_service.state_"><code class="docutils literal notranslate"><span class="pre">state_</span></code></a></li>
+<li><a class="reference internal" href="#scripts.go_to_point_service.yaw_"><code class="docutils literal notranslate"><span class="pre">yaw_</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#module-scripts.goals_service">Goals_service Module</a><ul>
 <li><a class="reference internal" href="#scripts.goals_service.canc_n"><code class="docutils literal notranslate"><span class="pre">canc_n</span></code></a></li>
 <li><a class="reference internal" href="#scripts.goals_service.clbk_result"><code class="docutils literal notranslate"><span class="pre">clbk_result()</span></code></a></li>
@@ -421,8 +437,184 @@ send a cancel request to the action server.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="go-to-point-service-module">
-<h1>Go_to_point_service Module<a class="headerlink" href="#go-to-point-service-module" title="Permalink to this heading"></a></h1>
+<div class="section" id="module-scripts.go_to_point_service">
+<span id="go-to-point-service-module"></span><h1>Go_to_point_service Module<a class="headerlink" href="#module-scripts.go_to_point_service" title="Permalink to this heading"></a></h1>
+<span class="target" id="module-go_to_point_service"></span><p>This node implements a service to make the robot move towards a point in the arena.</p>
+<dl>
+<dt>Subscribes to:</dt><dd><div class="line-block">
+<div class="line">/odom</div>
+</div>
+</dd>
+<dt>Publishes to:</dt><dd><div class="line-block">
+<div class="line">/cmd_vel</div>
+</div>
+</dd>
+<dt>Service:</dt><dd><div class="line-block">
+<div class="line">/go_to_point_switch</div>
+</div>
+</dd>
+<dt>Parameter:</dt><dd><div class="line-block">
+<div class="line">/des_pos_x</div>
+<div class="line">/des_pos_y</div>
+</div>
+</dd>
+</dl>
+<dl class="py data">
+<dt class="sig sig-object py" id="scripts.go_to_point_service.active_">
+<span class="sig-prename descclassname"><span class="pre">scripts.go_to_point_service.</span></span><span class="sig-name descname"><span class="pre">active_</span></span><a class="headerlink" href="#scripts.go_to_point_service.active_" title="Permalink to this definition"></a></dt>
+<dd><p>Boolean to check if the service is active or not</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scripts.go_to_point_service.change_state">
+<span class="sig-prename descclassname"><span class="pre">scripts.go_to_point_service.</span></span><span class="sig-name descname"><span class="pre">change_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/go_to_point_service.html#change_state"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.go_to_point_service.change_state" title="Permalink to this definition"></a></dt>
+<dd><p>Function to change the state</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>state</strong> – Integer value representing the state to change to.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scripts.go_to_point_service.clbk_odom">
+<span class="sig-prename descclassname"><span class="pre">scripts.go_to_point_service.</span></span><span class="sig-name descname"><span class="pre">clbk_odom</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/go_to_point_service.html#clbk_odom"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.go_to_point_service.clbk_odom" title="Permalink to this definition"></a></dt>
+<dd><p>Callback function to retrieve the position and the pose of the robot</p>
+<p>The function is called when a <code class="docutils literal notranslate"><span class="pre">nav_msgs::Odometry</span></code> message is published on the topic <code class="docutils literal notranslate"><span class="pre">/odom</span></code>.
+It retrieves the <em>pose</em> and the <em>position</em> from the message and stores them in the global variables <code class="docutils literal notranslate"><span class="pre">position_</span></code> and <code class="docutils literal notranslate"><span class="pre">pose_</span></code>.
+Finally, it computes the <em>yaw</em> angle from the pose, using quaternions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>msg</strong> – <p>Message of type <a class="reference external" href="http://docs.ros.org/en/noetic/api/nav_msgs/html/msg/Odometry.html">nav_msgs::Odometry</a></p>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="scripts.go_to_point_service.desired_position_">
+<span class="sig-prename descclassname"><span class="pre">scripts.go_to_point_service.</span></span><span class="sig-name descname"><span class="pre">desired_position_</span></span><a class="headerlink" href="#scripts.go_to_point_service.desired_position_" title="Permalink to this definition"></a></dt>
+<dd><p>Message of type <code class="docutils literal notranslate"><span class="pre">geometry_msgs::Point</span></code> to set the desired position of the ROS parameter</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scripts.go_to_point_service.done">
+<span class="sig-prename descclassname"><span class="pre">scripts.go_to_point_service.</span></span><span class="sig-name descname"><span class="pre">done</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/go_to_point_service.html#done"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.go_to_point_service.done" title="Permalink to this definition"></a></dt>
+<dd><p>Function to stop the robot</p>
+<p>The function publishes a null <em>velocity</em> as a <code class="docutils literal notranslate"><span class="pre">geometry_msgs::Twist</span></code> message to the <code class="docutils literal notranslate"><span class="pre">/cmd_vel</span></code> topic
+to stop the robot.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scripts.go_to_point_service.fix_yaw">
+<span class="sig-prename descclassname"><span class="pre">scripts.go_to_point_service.</span></span><span class="sig-name descname"><span class="pre">fix_yaw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">des_pos</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/go_to_point_service.html#fix_yaw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.go_to_point_service.fix_yaw" title="Permalink to this definition"></a></dt>
+<dd><p>Function to turn the robot</p>
+<p>The function computes the desired yaw angle and publishes the appropriate
+angular velocity to the topic <code class="docutils literal notranslate"><span class="pre">/cmd_vel</span></code>. Once the desired yaw is reached,
+the function changes the state to 1.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>des_pos</strong> – Message of type <a class="reference external" href="http://docs.ros.org/en/noetic/api/geometry_msgs/html/msg/Point.html">geometry_msgs::Point</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scripts.go_to_point_service.go_straight_ahead">
+<span class="sig-prename descclassname"><span class="pre">scripts.go_to_point_service.</span></span><span class="sig-name descname"><span class="pre">go_straight_ahead</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">des_pos</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/go_to_point_service.html#go_straight_ahead"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.go_to_point_service.go_straight_ahead" title="Permalink to this definition"></a></dt>
+<dd><p>Function to move the robot straight</p>
+<p>The function makes the robot move straight to the desired position by publishing the appropriate linear
+velocity to the topic <code class="docutils literal notranslate"><span class="pre">/cmd_vel</span></code>. If the yaw angle is wrong, the function changes the state to 0.
+If the position is reached, the function changes the state to 2.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>des_pos</strong> – <p>Message of type <a class="reference external" href="http://docs.ros.org/en/noetic/api/geometry_msgs/html/msg/Point.html">geometry_msgs::Point</a></p>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scripts.go_to_point_service.go_to_point_switch">
+<span class="sig-prename descclassname"><span class="pre">scripts.go_to_point_service.</span></span><span class="sig-name descname"><span class="pre">go_to_point_switch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">req</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/go_to_point_service.html#go_to_point_switch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.go_to_point_service.go_to_point_switch" title="Permalink to this definition"></a></dt>
+<dd><p>Callback function for the service</p>
+<p>The function is called when the service is called. It sets the variable <code class="docutils literal notranslate"><span class="pre">active_</span></code> to true
+and returns reply message</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>req</strong> – Request message</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The reply message</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scripts.go_to_point_service.main">
+<span class="sig-prename descclassname"><span class="pre">scripts.go_to_point_service.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/go_to_point_service.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.go_to_point_service.main" title="Permalink to this definition"></a></dt>
+<dd><p>Main function</p>
+<p>The function is used to <em>initialize</em> the subscriber, the publisher and the service.
+After the initialization, if the <code class="docutils literal notranslate"><span class="pre">active_</span></code> variable is set to true, the function
+checks the <code class="docutils literal notranslate"><span class="pre">state</span></code> variable and calls the appropriate function.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scripts.go_to_point_service.normalize_angle">
+<span class="sig-prename descclassname"><span class="pre">scripts.go_to_point_service.</span></span><span class="sig-name descname"><span class="pre">normalize_angle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">angle</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/go_to_point_service.html#normalize_angle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.go_to_point_service.normalize_angle" title="Permalink to this definition"></a></dt>
+<dd><p>Function to normalize an angle</p>
+<p>The function normalizes the <em>angle</em> given in input using the <code class="docutils literal notranslate"><span class="pre">math</span></code> library</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>angle</strong> – Float number representing the angle to normalize</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The normalized angle</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="scripts.go_to_point_service.position_">
+<span class="sig-prename descclassname"><span class="pre">scripts.go_to_point_service.</span></span><span class="sig-name descname"><span class="pre">position_</span></span><a class="headerlink" href="#scripts.go_to_point_service.position_" title="Permalink to this definition"></a></dt>
+<dd><p>Message of type <code class="docutils literal notranslate"><span class="pre">geometry_msgs::Point</span></code> for the position</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="scripts.go_to_point_service.pub">
+<span class="sig-prename descclassname"><span class="pre">scripts.go_to_point_service.</span></span><span class="sig-name descname"><span class="pre">pub</span></span><a class="headerlink" href="#scripts.go_to_point_service.pub" title="Permalink to this definition"></a></dt>
+<dd><p>Publisher to the topic <code class="docutils literal notranslate"><span class="pre">/cmd_vel</span></code></p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="scripts.go_to_point_service.state_">
+<span class="sig-prename descclassname"><span class="pre">scripts.go_to_point_service.</span></span><span class="sig-name descname"><span class="pre">state_</span></span><a class="headerlink" href="#scripts.go_to_point_service.state_" title="Permalink to this definition"></a></dt>
+<dd><div class="line-block">
+<div class="line">Variable to store the state of the robot:</div>
+<div class="line">0 - turn</div>
+<div class="line">1 - go straight</div>
+<div class="line">2 - done</div>
+</div>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="scripts.go_to_point_service.yaw_">
+<span class="sig-prename descclassname"><span class="pre">scripts.go_to_point_service.</span></span><span class="sig-name descname"><span class="pre">yaw_</span></span><a class="headerlink" href="#scripts.go_to_point_service.yaw_" title="Permalink to this definition"></a></dt>
+<dd><p>Variable to store the value of the yaw angle</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
 </div>
 <div class="section" id="module-scripts.goals_service">
 <span id="goals-service-module"></span><h1>Goals_service Module<a class="headerlink" href="#module-scripts.goals_service" title="Permalink to this heading"></a></h1>
@@ -616,7 +808,7 @@ linear velocity and returns the message.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="scripts.wall_follow_service.main">
 <span class="sig-prename descclassname"><span class="pre">scripts.wall_follow_service.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/scripts/wall_follow_service.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scripts.wall_follow_service.main" title="Permalink to this definition"></a></dt>
-<dd><p>Main function</p>
+<dd><p>Main function.</p>
 <p>The function initializes the publisher, the subscriber and the service.
 Then, if the variable <code class="docutils literal notranslate"><span class="pre">active_</span></code> is set to true, it checks the state
 and calls the appropriate function.</p>
